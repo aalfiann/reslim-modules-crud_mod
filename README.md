@@ -8,7 +8,7 @@
 
 1. Download zip then upload to reSlim server to the modules/
 2. Extract zip then you will get new folder like **reSlim-modules-crud_mod-master**
-3. Rename **reSlim-modules-crud_mod-master** to **crud_mod**
+3. Rename foldername **reSlim-modules-crud_mod-master** to **crud_mod**
 4. Done
 
 ### How to Integrate this module into reSlim with Packager?
