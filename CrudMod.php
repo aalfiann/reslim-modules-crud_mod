@@ -13,7 +13,7 @@ use PDO;                                            //To connect with database
      * @package    modules/crud_mod
      * @author     M ABD AZIZ ALFIAN <github.com/aalfiann>
      * @copyright  Copyright (c) 2018 M ABD AZIZ ALFIAN
-     * @license    https://github.com/aalfiann/reSlim-modules-crud_mod/LICENSE.md  MIT License
+     * @license    https://github.com/aalfiann/reSlim-modules-crud_mod/blob/master/LICENSE.md  MIT License
      */
     class CrudMod {
 
