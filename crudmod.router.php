@@ -135,15 +135,13 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to read single data for public user (include cache)
     $app->get('/crud_mod/read/{id}/', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
-        $cm->username = $request->getAttribute('username');
-        $cm->token = $request->getAttribute('token');
         $cm->id = $request->getAttribute('id');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(60,["apikey"])){
             $datajson = SimpleCache::load(["apikey"]);
         } else {
-            $datajson = SimpleCache::save($cm->read(),["apikey"]);
+            $datajson = SimpleCache::save($cm->readPublic(),["apikey"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200);

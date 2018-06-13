@@ -352,6 +352,42 @@ use PDO;                                            //To connect with database
 			
 			return JSON::encode($data,true);
 	        $this->db= null;
+		}
+		
+		public function readPublic() {
+			$sql = "SELECT a.ID,a.Fullname,a.Address,a.Telp,a.Email,a.Website
+					FROM crud_mod a
+					WHERE a.ID = :id LIMIT 1;";
+				
+			$stmt = $this->db->prepare($sql);		
+			$stmt->bindParam(':id', $this->id, PDO::PARAM_STR);
+
+			if ($stmt->execute()) {	
+    		    if ($stmt->rowCount() > 0){
+                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					$data = [
+			   	        'result' => $results, 
+    	    	        'status' => 'success', 
+		           	    'code' => 'RS501',
+    		        	'message' => CustomHandlers::getreSlimMessage('RS501')
+					];
+			    } else {
+        		    $data = [
+        		    	'status' => 'error',
+	        		    'code' => 'RS601',
+    		    	    'message' => CustomHandlers::getreSlimMessage('RS601')
+					];
+	    	    }          	   	
+			} else {
+				$data = [
+        			'status' => 'error',
+					'code' => 'RS202',
+	        		'message' => CustomHandlers::getreSlimMessage('RS202')
+				];
+			}
+			
+			return JSON::encode($data,true);
+	        $this->db= null;
         }
 
         public function index() {
