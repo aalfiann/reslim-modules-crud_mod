@@ -14,12 +14,12 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
 
 
     // Get module information
-    $app->get('/crud_mod/get/info/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/crud_mod/get/info/', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         $body->write($cm->viewInfo());
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ApiKey);
 
     // Installation 
@@ -133,7 +133,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     });
 
     // GET api to read single data for public user (include cache)
-    $app->get('/crud_mod/read/{id}/', function (Request $request, Response $response) {
+    $app->map(['GET','OPTIONS'],'/crud_mod/read/{id}/', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
         $cm->id = $request->getAttribute('id');
         $body = $response->getBody();
@@ -144,5 +144,5 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
             $datajson = SimpleCache::save($cm->readPublic(),["apikey"]);
         }
         $body->write($datajson);
-        return classes\Cors::modify($response,$body,200);
+        return classes\Cors::modify($response,$body,200,$request);
     })->add(new ApiKey);

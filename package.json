@@ -3,7 +3,7 @@
         "name": "CrudMod",
         "url": "https://github.com/aalfiann/reslim-modules-crud_mod",
         "description": "Example to create crud module in reSlim",
-        "version": "1.0",
+        "version": "1.1",
         "require": {
             "reSlim": "1.9.0"
         },
