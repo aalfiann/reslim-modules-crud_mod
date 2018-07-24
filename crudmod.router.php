@@ -50,6 +50,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     $app->post('/crud_mod/create', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
         $datapost = $request->getParsedBody();
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->username = $datapost['Username'];
         $cm->token = $datapost['Token'];
         $cm->fullname = $datapost['Fullname'];
@@ -71,7 +72,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to update data
     $app->post('/crud_mod/update', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->username = $datapost['Username'];
         $cm->token = $datapost['Token'];
         $cm->fullname = $datapost['Fullname'];
@@ -95,7 +97,8 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // POST api to delete data
     $app->post('/crud_mod/delete', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
-        $datapost = $request->getParsedBody();    
+        $datapost = $request->getParsedBody();
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->id = $datapost['ID'];
         $cm->username = $datapost['Username'];
         $cm->token = $datapost['Token'];
@@ -107,9 +110,10 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
         ->add(new ValidateParam('Username','1-50','required'));
 
 
-    // GET api to show all data (index) with pagination server side
+    // GET api to show all data (index) with pagination
     $app->get('/crud_mod/index/{username}/{token}/{page}/{itemsperpage}/', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->search = filter_var((empty($_GET['query'])?'':$_GET['query']),FILTER_SANITIZE_STRING);
         $cm->username = $request->getAttribute('username');
         $cm->token = $request->getAttribute('token');
@@ -124,6 +128,7 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to read single data
     $app->get('/crud_mod/read/{id}/{username}/{token}', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->username = $request->getAttribute('username');
         $cm->token = $request->getAttribute('token');
         $cm->id = $request->getAttribute('id');
@@ -135,14 +140,15 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
     // GET api to read single data for public user (include cache)
     $app->map(['GET','OPTIONS'],'/crud_mod/read/{id}/', function (Request $request, Response $response) {
         $cm = new CrudMod($this->db);
+        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
         $cm->id = $request->getAttribute('id');
         $body = $response->getBody();
-        $response = $this->cache->withEtag($response, $this->etag2hour.'-'.trim($_SERVER['REQUEST_URI'],'/'));
-        if (SimpleCache::isCached(60,["apikey"])){
-            $datajson = SimpleCache::load(["apikey"]);
+        $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
+        if (SimpleCache::isCached(300,["apikey","lang"])){
+            $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
-            $datajson = SimpleCache::save($cm->readPublic(),["apikey"]);
+            $datajson = SimpleCache::save($cm->readPublic(),["apikey","lang"]);
         }
         $body->write($datajson);
         return classes\Cors::modify($response,$body,200,$request);
-    })->add(new ApiKey);
+    })->add(new ValidateParamURL('lang','0-2'))->add(new ApiKey);

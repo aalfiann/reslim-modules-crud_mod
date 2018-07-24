@@ -1,0 +1,314 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CrudMod",
+		"_postman_id": "1c41e07e-e833-1fc9-8b0b-9e128837f0a9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Info Module",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim/src/api/crud_mod/get/info/?apikey={yourapikey}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim",
+						"src",
+						"api",
+						"crud_mod",
+						"get",
+						"info",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{yourapikey}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get Info Module\n---\nGet info detail about CrudMod Module."
+			},
+			"response": []
+		},
+		{
+			"name": "Install",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/install/{yourusername}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Install CrudMod Database\n---\nThis will install CrudMod Database.\n\nNote:\n- Only user with role Superuser who can install.\n- Your exist database will be replaced if you ever install this before."
+			},
+			"response": []
+		},
+		{
+			"name": "Uninstall",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/uninstall/{yourusername}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Uninstall CrudMod Database\n---\nThis will remove CrudMod Database.\n\nNote:\n- Only user with role Superuser who can uninstall.\n- Your exist crudmod database will be removed clean."
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{yourusername}",
+							"description": "Length is 1-50 {alphanumeric,lowercase,required}",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "Length is 1-250 {required}",
+							"type": "text"
+						},
+						{
+							"key": "Fullname",
+							"value": "",
+							"description": "Length is 1-50 {required}",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "",
+							"description": "Length is 0-250",
+							"type": "text"
+						},
+						{
+							"key": "Telp",
+							"value": "",
+							"description": "Length is 0-15 {numeric}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "",
+							"description": "Length is 0-50 {email}",
+							"type": "text"
+						},
+						{
+							"key": "Website",
+							"value": "",
+							"description": "Length is 0-50 {url}",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Create\n---\nThis is to create new data"
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/update",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{yourusername}",
+							"description": "Length is 1-50 {alphanumeric,lowercase,required}",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "Length is 1-250 {required}",
+							"type": "text"
+						},
+						{
+							"key": "Fullname",
+							"value": "",
+							"description": "Length is 1-50 {required}",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "",
+							"description": "Length is 0-250",
+							"type": "text"
+						},
+						{
+							"key": "Telp",
+							"value": "",
+							"description": "Length is 0-15 {numeric}",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "",
+							"description": "Length is 0-50 {email}",
+							"type": "text"
+						},
+						{
+							"key": "Website",
+							"value": "",
+							"description": "Length is 0-50 {url}",
+							"type": "text"
+						},
+						{
+							"key": "ID",
+							"value": "{id}",
+							"description": "Length is 1-11 {numeric,required}",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Update\n---\nThis to update the data"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/delete",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Username",
+							"value": "{yourusername}",
+							"description": "Length is 1-50 {alphanumeric,lowercase,required}",
+							"type": "text"
+						},
+						{
+							"key": "Token",
+							"value": "{yourtoken}",
+							"description": "Length is 1-250 {required}",
+							"type": "text"
+						},
+						{
+							"key": "ID",
+							"value": "{id}",
+							"description": "Length is 1-11 {numeric,required}",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Delete\n---\nThis to delete the data\n\nNote:\n- Only user with role Superuser who can delete the data"
+			},
+			"response": []
+		},
+		{
+			"name": "Read",
+			"request": {
+				"url": "http://localhost:1337/reSlim/src/api/crud_mod/read/{id}/{yourusername}/{yourtoken}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Read\n---\nThis will show the data by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Read Public",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim/src/api/crud_mod/read/{id}/?apikey={yourapikey}&lang=en",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim",
+						"src",
+						"api",
+						"crud_mod",
+						"read",
+						"{id}",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{yourapikey}",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "lang",
+							"value": "en",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Read Public\n---\nThis will show the data by id for public access with api key.\n\nNote:\n- Public access is using cache with lifetime cache is 300 seconds"
+			},
+			"response": []
+		},
+		{
+			"name": "Index",
+			"request": {
+				"url": {
+					"raw": "http://localhost:1337/reSlim/src/api/crud_mod/index/{yourusername}/{yourtoken}/{page}/{itemsperpage}/?query={query to search}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"reSlim",
+						"src",
+						"api",
+						"crud_mod",
+						"index",
+						"{yourusername}",
+						"{yourtoken}",
+						"{page}",
+						"{itemsperpage}",
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{query to search}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Index\n---\nThis will index, show or scan all data with pagination."
+			},
+			"response": []
+		}
+	]
+}
