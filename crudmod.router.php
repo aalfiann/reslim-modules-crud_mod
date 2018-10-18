@@ -139,14 +139,14 @@ use \classes\SimpleCache as SimpleCache;                        //SimpleCache cl
 
     // GET api to read single data for public user (include cache)
     $app->map(['GET','OPTIONS'],'/crud_mod/read/{id}/', function (Request $request, Response $response) {
-        $cm = new CrudMod($this->db);
-        $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
-        $cm->id = $request->getAttribute('id');
         $body = $response->getBody();
         $response = $this->cache->withEtag($response, $this->etag.'-'.trim($_SERVER['REQUEST_URI'],'/'));
         if (SimpleCache::isCached(300,["apikey","lang"])){
             $datajson = SimpleCache::load(["apikey","lang"]);
         } else {
+            $cm = new CrudMod($this->db);
+            $cm->lang = (empty($_GET['lang'])?$this->settings['language']:$_GET['lang']);
+            $cm->id = $request->getAttribute('id');
             $datajson = SimpleCache::save($cm->readPublic(),["apikey","lang"],null,300);
         }
         $body->write($datajson);
